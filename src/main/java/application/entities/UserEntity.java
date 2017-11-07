@@ -1,4 +1,4 @@
-package application;
+package application.entities;
 
 /**
  * Created by santiago on 11/5/17.
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
