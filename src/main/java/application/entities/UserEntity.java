@@ -25,6 +25,8 @@ public class UserEntity {
 
     private String password;
 
+    private boolean status;
+
 
     public Long getId() {
         return id;
@@ -72,5 +74,13 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
