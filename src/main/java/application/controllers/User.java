@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -35,17 +39,22 @@ public class User {
                 String.format(template, name));
     }
 
-    @GetMapping(path="/add") // Map ONLY GET Requests
-    public @ResponseBody String addNewUser (
+    @RequestMapping(path="/add", method = RequestMethod.POST) // Map ONLY GET Requests
+    public @ResponseBody ResponseEntity addNewUser (
             @RequestParam String userName,
             @RequestParam String email,
-            @RequestParam String city) {
+            @RequestParam String city,
+            @RequestParam String name,
+            @RequestParam String password,
+            @RequestParam boolean status) {
         UserEntity user = new UserEntity();
-        user.setUsername(userName);
+        user.setName(name);
         user.setEmail(email);
         user.setCity(city);
+        user.setUsername(userName);
+        user.setPassword(password);
         userRepository.save(user);
-        return "Saved";
+        return new ResponseEntity<String>( HttpStatus.OK );
     }
 
     @GetMapping(path="/all")

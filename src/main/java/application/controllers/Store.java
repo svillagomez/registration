@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -24,7 +27,7 @@ public class Store {
     private StoreRepository storeRepository;
 
     @RequestMapping(path="/add", method = RequestMethod.POST)
-    public @ResponseBody String addStore (
+    public @ResponseBody ResponseEntity addStore (
             @RequestParam String name,
             @RequestParam String ruc,
             @RequestParam String city,
@@ -36,7 +39,9 @@ public class Store {
         store.setStatus(status);
 
         storeRepository.save(store);
-        return "Saved";
+
+        return new ResponseEntity<String>( HttpStatus.OK );
+
     }
 
     @GetMapping(path="/all")
