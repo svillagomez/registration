@@ -32,14 +32,6 @@ public class User {
     @Autowired
     private UserRepository userRepository;
 
-
-    @RequestMapping("/greeting")
-    public Greeter greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        final String template = "Hello, %s!";
-        return new Greeter(counter.incrementAndGet(),
-                String.format(template, name));
-    }
-
     @RequestMapping(path="/add", method = RequestMethod.POST) // Map ONLY GET Requests
     public @ResponseBody ResponseEntity addNewUser (
             @RequestParam String userName,
