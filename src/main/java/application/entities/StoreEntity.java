@@ -5,15 +5,21 @@ package application.entities;
  */
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "storeEntity")
 public class StoreEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -23,11 +29,15 @@ public class StoreEntity {
 
     private boolean status;
 
-    public Integer getId() {
+    @OneToMany
+    @JoinColumn(name = "storeEntity_id")
+    private List<UserEntity> users = new ArrayList<UserEntity>();
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,5 +71,13 @@ public class StoreEntity {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 }

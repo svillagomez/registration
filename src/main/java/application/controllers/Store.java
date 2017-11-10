@@ -5,6 +5,7 @@ package application.controllers;
 
 //import application.User;
 import application.repositories.StoreRepository;
+import application.repositories.UserRepository;
 import application.entities.StoreEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,17 +27,22 @@ public class Store {
     @Autowired
     private StoreRepository storeRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @RequestMapping(path="/add", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity addStore (
             @RequestParam String name,
             @RequestParam String ruc,
             @RequestParam String city,
-            @RequestParam boolean status) {
+            @RequestParam boolean status,
+            @RequestParam Long id) {
         StoreEntity store = new StoreEntity();
         store.setName(name);
         store.setRuc(ruc);
         store.setCity(city);
         store.setStatus(status);
+        store.getUsers().add(userRepository.findOne(id));
 
         storeRepository.save(store);
 
